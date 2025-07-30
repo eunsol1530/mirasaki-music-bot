@@ -41,9 +41,9 @@ const emojis = require('./config/emojis.json');
 
 // Resolve client configuration
 const modeArg = process.argv.find((arg) => arg.startsWith('mode='));
-const configFilePath = modeArg && modeArg.endsWith('test') ? '../config.example.js' : '../config.js';
-if (!existsSync(configFilePath.replace(/\.\.\//g, ''))) {
-  logger.syserr(`Configuration file at "${ configFilePath.replace(/\.\.\//g, '') }" doesn't exists, please refer to documentation, exiting...`);
+const configFilePath = modeArg && modeArg.endsWith('test') ? path.resolve(__dirname, '../config.example.js') : path.resolve(__dirname, '../config.js');
+if (!existsSync(configFilePath)) {
+  logger.syserr(`Configuration file at "${ configFilePath }" doesn't exist, please refer to documentation, exiting...`);
   process.exit(0);
 }
 const clientConfig = require(configFilePath);

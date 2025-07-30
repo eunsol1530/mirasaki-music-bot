@@ -9,10 +9,11 @@ const { ComponentCommand } = require('../../../classes/Commands');
 
 const clean = (text) => {
   if (typeof (text) === 'string') {
+    const escapedToken = process.env.DISCORD_BOT_TOKEN.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escape special regex characters
     return text.replace(/`/g, '`'
       + String.fromCharCode(ZERO_WIDTH_SPACE_CHAR_CODE)).replace(/@/g, '@'
       + String.fromCharCode(ZERO_WIDTH_SPACE_CHAR_CODE))
-      .replace(new RegExp(process.env.DISCORD_BOT_TOKEN), '<token>');
+      .replace(new RegExp(escapedToken), '<token>');
   }
   else return text;
 };
